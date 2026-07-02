@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!--
+    To recolor the favicon, edit the three values below. That's it.
+      --tile   : background square
+      --blob-a : lighter/back blob (amber)
+      --blob-b : accent/front blob (terracotta)
+  -->
+  <style>
+    svg { --tile: #f6f2ea; --blob-a: #c98a4b; --blob-b: #b8501f; }
+    .tile   { fill: var(--tile); }
+    .blob-a { fill: var(--blob-a); }
+    .blob-b { fill: var(--blob-b); opacity: 0.88; }
+  </style>
+  <rect class="tile" width="32" height="32" />
+  <path
+    class="blob-a"
+    d="M13 5 C18 4.4 22 7.6 22.6 12.4 C23.2 17 20 21 15.6 22.2 C11 23.4 6.4 20.6 5.6 16 C4.8 11 7.8 5.6 13 5 Z"
+  />
+  <path
+    class="blob-b"
+    d="M19.6 10 C24.4 9.4 28 12.8 27.8 17.6 C27.6 22.2 23.8 26 19.2 26 C14.6 26 11.2 22 11.8 17.4 C12.4 12.8 14.8 10.6 19.6 10 Z"
+  />
+</svg>

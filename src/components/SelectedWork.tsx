@@ -1,4 +1,5 @@
 import { projects } from '../data/portfolio'
+import { Link } from '../router'
 import { Reveal } from './Reveal'
 import styles from './SelectedWork.module.css'
 
@@ -31,10 +32,17 @@ export function SelectedWork() {
                   </span>
                 ))}
               </div>
-              <div className={styles.shot}>
-                <span className={styles.shotSweep} aria-hidden="true" />
-                {project.shotLabel}
-              </div>
+              {project.href ? (
+                <Link to={project.href} className={styles.shotLink} aria-label={`Open ${project.title}`}>
+                  <span className={styles.shotSweep} aria-hidden="true" />
+                  {project.shotLabel}
+                </Link>
+              ) : (
+                <div className={styles.shot}>
+                  <span className={styles.shotSweep} aria-hidden="true" />
+                  {project.shotLabel}
+                </div>
+              )}
             </div>
           </div>
         </Reveal>

@@ -5,11 +5,23 @@ export interface Project {
   description: string
   tags: string[]
   shotLabel: string
+  /** Internal route to a live subpage, if the project is playable/interactive. */
+  href?: string
 }
 
 export const projects: Project[] = [
   {
     index: '01',
+    title: 'Monolith',
+    year: '2026',
+    description:
+      'A playable web-based synthesizer — a warm analog voice built on the Web Audio API. Oscillators, filter, ADSR, LFO and FX, driven live from an oscilloscope-lit panel and your keyboard.',
+    tags: ['TYPESCRIPT', 'REACT', 'WEB AUDIO', 'CANVAS'],
+    shotLabel: '[ LAUNCH THE SYNTH → ]',
+    href: '/synth',
+  },
+  {
+    index: '02',
     title: 'Ledger',
     year: '2024',
     description:
@@ -18,7 +30,7 @@ export const projects: Project[] = [
     shotLabel: '[ PROJECT SHOT — LEDGER DASHBOARD ]',
   },
   {
-    index: '02',
+    index: '03',
     title: 'Northwind',
     year: '2023',
     description:
@@ -27,7 +39,7 @@ export const projects: Project[] = [
     shotLabel: '[ PROJECT SHOT — NORTHWIND ANALYTICS ]',
   },
   {
-    index: '03',
+    index: '04',
     title: 'Cascade',
     year: '2022',
     description:

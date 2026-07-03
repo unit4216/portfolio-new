@@ -96,7 +96,8 @@
   padding: 4px 10px;
 }
 
-.shot {
+.shot,
+.shotLink {
   position: relative;
   overflow: hidden;
   margin-top: 26px;
@@ -116,12 +117,25 @@
   text-align: center;
   transition:
     transform 0.35s ease,
-    box-shadow 0.35s ease;
+    box-shadow 0.35s ease,
+    color 0.35s ease;
 }
 
-.projectInner:hover .shot {
+.shotLink {
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid var(--color-tag-border);
+}
+
+.projectInner:hover .shot,
+.projectInner:hover .shotLink {
   transform: translateY(-4px);
   box-shadow: 0 24px 40px -28px rgba(0, 0, 0, 0.35);
+}
+
+.projectInner:hover .shotLink {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .shotSweep {

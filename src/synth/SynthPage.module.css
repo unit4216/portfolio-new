@@ -225,15 +225,6 @@
   min-height: 120px;
 }
 
-.scan {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: rgba(var(--color-accent-rgb), 0.55);
-  animation: syn-scan 3.4s linear infinite;
-}
-
 .scopeReadouts {
   padding: 24px clamp(20px, 4vw, 56px) 24px 0;
   display: flex;
@@ -501,23 +492,6 @@
   max-width: 60ch;
 }
 
-@keyframes syn-scan {
-  0% {
-    left: 0%;
-    opacity: 0;
-  }
-  8% {
-    opacity: 1;
-  }
-  92% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-
 @keyframes syn-led {
   0%,
   100% {
@@ -554,7 +528,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scan,
   .led {
     animation: none;
   }

@@ -209,7 +209,6 @@ export function SynthPage() {
             <div className={styles.scopeGrid} />
             <div className={styles.scopeMid} />
             <Oscilloscope engine={engine} wave={params.wave} />
-            <div className={styles.scan} />
           </div>
           <div className={styles.scopeReadouts}>
             <div className={styles.readoutBlock}>

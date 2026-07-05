@@ -8,12 +8,16 @@ export function Hero() {
         FULL-STACK ENGINEER
       </div>
       <h1 className={styles.heading}>
-        <span className={styles.nameSoft}>Pablo</span>
+        <span className={styles.nameLine}>
+          <span className={styles.nameSoft}>Pablo</span>
+        </span>
         <br />
-        <span className={styles.nameAccent}>
-          Paliza
-          <br />
-          Carre
+        <span className={`${styles.nameLine} ${styles.nameLineDelay1}`}>
+          <span className={styles.nameAccent}>Paliza</span>
+        </span>
+        <br />
+        <span className={`${styles.nameLine} ${styles.nameLineDelay2}`}>
+          <span className={styles.nameAccent}>Carre</span>
         </span>
       </h1>
       <p className={styles.tagline}>Database to pixel — software built to last.</p>

@@ -12,6 +12,9 @@
   letter-spacing: 0.14em;
   color: var(--color-accent);
   margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fp-rise-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .eyebrowDot {
@@ -29,6 +32,29 @@
   font-size: clamp(48px, 9vw, 108px);
   line-height: 0.94;
   letter-spacing: -0.03em;
+}
+
+.nameLine {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(32px);
+  animation: fp-rise-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 100ms;
+}
+
+.nameLineDelay1 {
+  animation-delay: 220ms;
+}
+
+.nameLineDelay2 {
+  animation-delay: 340ms;
+}
+
+@keyframes fp-rise-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .nameSoft {
@@ -51,6 +77,10 @@
   font-size: clamp(17px, 2.4vw, 24px);
   color: var(--color-text-muted);
   letter-spacing: 0.01em;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fp-rise-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 460ms;
 }
 
 .meta {
@@ -63,6 +93,10 @@
   font-size: 12px;
   letter-spacing: 0.06em;
   color: var(--color-text-muted);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fp-rise-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 560ms;
 }
 
 .metaDot {

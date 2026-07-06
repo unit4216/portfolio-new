@@ -8,6 +8,12 @@ const shotDiv = `${shotBase} max-sm:h-[180px]`
 const shotLink = `${shotBase} cursor-pointer border border-tag-border no-underline group-hover:border-accent group-hover:text-accent`
 const shotSweep =
   'absolute left-0 top-0 h-[60px] w-[60%] -translate-x-[120%] bg-[linear-gradient(90deg,transparent,rgba(var(--color-accent-rgb),0.16),transparent)] group-hover:animate-[fp-sweep_1.1s_ease-in-out]'
+const shotImg =
+  'absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[350ms] group-hover:scale-[1.03]'
+const shotScrim =
+  'absolute inset-0 bg-black/15 transition-colors duration-[350ms] group-hover:bg-black/30'
+const shotLabelOnImg =
+  'relative z-[1] text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.7)] group-hover:text-white'
 
 export function SelectedWork() {
   return (
@@ -56,28 +62,35 @@ export function SelectedWork() {
                   </a>
                 )}
               </div>
-              {project.href && project.external ? (
-                <a
-                  href={project.href}
-                  className={shotLink}
-                  aria-label={`Open ${project.title}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span className={shotSweep} aria-hidden="true" />
-                  {project.shotLabel}
-                </a>
-              ) : project.href ? (
-                <Link to={project.href} className={shotLink} aria-label={`Open ${project.title}`}>
-                  <span className={shotSweep} aria-hidden="true" />
-                  {project.shotLabel}
-                </Link>
-              ) : (
-                <div className={shotDiv}>
-                  <span className={shotSweep} aria-hidden="true" />
-                  {project.shotLabel}
-                </div>
-              )}
+              {(() => {
+                const inner = (
+                  <>
+                    {project.cover && (
+                      <img className={shotImg} src={project.cover} alt="" aria-hidden="true" loading="lazy" />
+                    )}
+                    {project.cover && <span className={shotScrim} aria-hidden="true" />}
+                    <span className={shotSweep} aria-hidden="true" />
+                    <span className={project.cover ? shotLabelOnImg : undefined}>{project.shotLabel}</span>
+                  </>
+                )
+                return project.href && project.external ? (
+                  <a
+                    href={project.href}
+                    className={shotLink}
+                    aria-label={`Open ${project.title}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {inner}
+                  </a>
+                ) : project.href ? (
+                  <Link to={project.href} className={shotLink} aria-label={`Open ${project.title}`}>
+                    {inner}
+                  </Link>
+                ) : (
+                  <div className={shotDiv}>{inner}</div>
+                )
+              })()}
             </div>
           </div>
         </Reveal>

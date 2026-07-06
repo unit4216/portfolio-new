@@ -5,6 +5,8 @@ export interface Project {
   description: string
   tags: string[]
   shotLabel: string
+  /** Path to the project's cover image under /public, shown in the shot area. */
+  cover?: string
   /** Route to a live subpage or external URL, if the project is playable/interactive. */
   href?: string
   /** Set when href points off-site, so the link doesn't go through client-side routing. */
@@ -22,6 +24,7 @@ export const projects: Project[] = [
       'A mini property-management CRM with full CRUD for properties, built on Next.js and Postgres, deployed against Supabase.',
     tags: ['NEXT.JS', 'TYPESCRIPT', 'POSTGRES', 'DRIZZLE'],
     shotLabel: '[ VIEW THE CRM → ]',
+    cover: '/covers/property-crm.png',
     href: 'https://property-crm.pablopaliza.com',
     external: true,
     githubHref: 'https://github.com/pfpaliza/property-crm',
@@ -34,6 +37,7 @@ export const projects: Project[] = [
       'A playable subtractive synth built on the Web Audio API. Oscillators, filter, ADSR, LFO and FX, driven live from an oscilloscope-lit panel and your keyboard.',
     tags: ['TYPESCRIPT', 'REACT', 'WEB AUDIO', 'CANVAS'],
     shotLabel: '[ LAUNCH THE SYNTH → ]',
+    cover: '/covers/web-synth.png',
     href: '/synth',
     githubHref: 'https://github.com/pfpaliza/portfolio-new/tree/main/src/synth',
   },
@@ -45,6 +49,7 @@ export const projects: Project[] = [
       'A browser-playable survival game built in Godot and exported to HTML5.',
     tags: ['GODOT', 'GDSCRIPT', 'HTML5'],
     shotLabel: '[ PLAY ON ITCH.IO → ]',
+    cover: '/covers/tiny-survival.png',
     href: 'https://pfpaliza.itch.io/tiny-survival',
     external: true,
   },
@@ -56,6 +61,7 @@ export const projects: Project[] = [
       'A convolutional neural network that classifies histopathologic scans for signs of cancer, trained on a 220k-image Kaggle dataset with Keras and TensorFlow.',
     tags: ['PYTHON', 'TENSORFLOW', 'KERAS', 'CNN'],
     shotLabel: '[ VIEW THE NOTEBOOK → ]',
+    cover: '/covers/cancer-detection.png',
     href: 'https://github.com/pfpaliza/cancer-cnn/blob/main/cnn-cancer-detection.ipynb',
     external: true,
   },

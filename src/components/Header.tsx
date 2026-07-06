@@ -7,12 +7,13 @@ export function Header() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <header className="flex items-center justify-between border-b border-border px-[clamp(24px,6vw,88px)] py-[34px]">
-      <span className="inline-flex items-center gap-[9px] font-mono text-[13px] tracking-[0.12em]">
-        <span className="h-[7px] w-[7px] rounded-full bg-accent" />
-        PPC
-      </span>
-      <nav className="flex items-center gap-[clamp(16px,3vw,34px)] font-mono text-[12px] tracking-[0.04em] text-text-muted">
+    <header className="border-b border-border">
+      <div className="mx-auto flex max-w-[1080px] items-center justify-between px-[clamp(24px,6vw,88px)] py-[34px]">
+        <span className="inline-flex items-center gap-[9px] font-mono text-[13px] tracking-[0.12em]">
+          <span className="h-[7px] w-[7px] rounded-full bg-accent" />
+          PPC
+        </span>
+        <nav className="flex items-center gap-[clamp(16px,3vw,34px)] font-mono text-[12px] tracking-[0.04em] text-text-muted">
         <a className={navLink} href="#work">
           WORK
         </a>
@@ -32,7 +33,8 @@ export function Header() {
             {theme === 'light' ? 'DARK' : 'LIGHT'}
           </span>
         </button>
-      </nav>
+        </nav>
+      </div>
     </header>
   )
 }

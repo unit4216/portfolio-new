@@ -11,14 +11,16 @@ import { SynthPage } from './synth/SynthPage'
 
 function Home() {
   return (
-    <div className="mx-auto min-h-screen max-w-[1080px] bg-bg text-text">
+    <div className="min-h-screen bg-bg text-text">
       <Header />
-      <Hero />
-      <About />
-      <SelectedWork />
-      <Experience />
-      <Toolkit />
-      <Contact />
+      <div className="mx-auto max-w-[1080px]">
+        <Hero />
+        <About />
+        <SelectedWork />
+        <Experience />
+        <Toolkit />
+        <Contact />
+      </div>
     </div>
   )
 }

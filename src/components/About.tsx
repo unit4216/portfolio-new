@@ -9,12 +9,12 @@ export function About() {
       <Reveal className="font-mono text-[12px] tracking-[0.06em] text-text-muted">ABOUT</Reveal>
       <Reveal delay={80} className="max-w-[60ch]">
         <p className="mt-0 mb-[22px] font-serif text-[clamp(20px,3vw,27px)] font-normal leading-[1.4] tracking-[-0.01em]">
-          I like the unglamorous middle of the stack — the queues, the migrations, the edge cases — because
-          that&rsquo;s where reliability is really decided.
+          I&rsquo;m a software engineer who has several years of experience building full-stack internal tools and data infrastructure.
         </p>
         <p className="m-0 text-[16px] leading-[1.7] text-text-body">
-          Previously I led platform teams building payments and analytics tooling. Today I split my time between
-          hands-on engineering and helping small teams get their architecture right before they scale.
+          Over the past four years, I&rsquo;ve grown from junior developer to lead at my current role, building
+          applications and data pipelines end to end. These days I split my time between hands-on engineering and
+          day-to-day leadership of a small team, working mostly in TypeScript, React, Node, and GCP.
         </p>
       </Reveal>
     </section>

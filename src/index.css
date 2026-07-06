@@ -178,17 +178,19 @@ html {
 
 @keyframes fp-sweep {
   0% {
-    transform: translateX(-120%);
+    translate: -120% 0;
   }
   100% {
-    transform: translateX(220%);
+    translate: 220% 0;
   }
 }
 
 @keyframes fp-rise-in {
   to {
     opacity: 1;
-    transform: translateY(0);
+    /* Tailwind v4 utilities set the `translate` property (not `transform`),
+     * so animate the same property for the offset to actually resolve. */
+    translate: 0 0;
   }
 }
 

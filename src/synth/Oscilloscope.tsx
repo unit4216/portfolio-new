@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import type { SynthEngine, Wave } from './engine'
-import styles from './SynthPage.module.css'
 
 interface Props {
   engine: SynthEngine
@@ -85,5 +84,5 @@ export function Oscilloscope({ engine, wave }: Props) {
     return () => cancelAnimationFrame(raf)
   }, [engine])
 
-  return <canvas ref={canvasRef} className={styles.scopeCanvas} aria-hidden="true" />
+  return <canvas ref={canvasRef} className="relative block h-full w-full min-h-[120px]" aria-hidden="true" />
 }

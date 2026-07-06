@@ -8,11 +8,10 @@ import { Experience } from './components/Experience'
 import { Toolkit } from './components/Toolkit'
 import { Contact } from './components/Contact'
 import { SynthPage } from './synth/SynthPage'
-import styles from './App.module.css'
 
 function Home() {
   return (
-    <div className={styles.page}>
+    <div className="mx-auto min-h-screen max-w-[1080px] bg-bg text-text">
       <Header />
       <Hero />
       <About />

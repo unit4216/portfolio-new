@@ -1,5 +1,4 @@
 import { useCallback, useRef } from 'react'
-import styles from './Fader.module.css'
 
 interface FaderProps {
   label: string
@@ -31,10 +30,10 @@ export function Fader({ label, value, min, max, onChange, height = 120, accent =
   const dragging = useRef(false)
 
   return (
-    <div className={styles.wrap}>
+    <div className="flex flex-col items-center gap-[10px]">
       <div
         ref={trackRef}
-        className={styles.track}
+        className="relative w-[8px] cursor-ns-resize touch-none rounded-[6px] bg-[var(--syn-slot)] focus-visible:shadow-[0_0_0_2px_var(--color-accent)] focus-visible:outline-none"
         style={{ height }}
         role="slider"
         aria-label={label}
@@ -64,12 +63,15 @@ export function Fader({ label, value, min, max, onChange, height = 120, accent =
         }}
       >
         <div
-          className={accent ? styles.fillAccent : styles.fill}
+          className={`absolute inset-x-0 bottom-0 rounded-[6px] ${accent ? 'bg-accent' : 'bg-accent-soft'}`}
           style={{ height: `${norm * 100}%` }}
         />
-        <div className={styles.thumb} style={{ bottom: `calc(${norm * 100}% - 6px)` }} />
+        <div
+          className="pointer-events-none absolute left-1/2 h-[13px] w-[26px] -translate-x-1/2 rounded-[3px] border border-[var(--syn-knob-border)] bg-[image:var(--syn-thumb)] shadow-[var(--syn-thumb-shadow)]"
+          style={{ bottom: `calc(${norm * 100}% - 6px)` }}
+        />
       </div>
-      <div className={styles.label}>{label}</div>
+      <div className="font-mono text-[10px] tracking-[0.08em] text-text-muted">{label}</div>
     </div>
   )
 }

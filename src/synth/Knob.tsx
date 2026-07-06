@@ -1,5 +1,4 @@
 import { useCallback, useRef } from 'react'
-import styles from './Knob.module.css'
 
 interface KnobProps {
   label: string
@@ -60,9 +59,9 @@ export function Knob({ label, value, min, max, onChange, size = 60, readout }: K
   }
 
   return (
-    <div className={styles.wrap}>
+    <div className="flex flex-col items-center gap-[10px]">
       <div
-        className={styles.knob}
+        className="relative flex-shrink-0 cursor-ns-resize touch-none rounded-full border border-[var(--syn-knob-border)] bg-[radial-gradient(circle_at_38%_30%,var(--syn-knob-hi),var(--syn-knob-lo))] shadow-[var(--syn-knob-shadow)] transition-shadow duration-150 focus-visible:shadow-[var(--syn-knob-shadow),0_0_0_2px_var(--color-accent)] focus-visible:outline-none"
         style={{ width: size, height: size }}
         role="slider"
         aria-label={label}
@@ -81,12 +80,12 @@ export function Knob({ label, value, min, max, onChange, size = 60, readout }: K
           if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') onChange(Math.max(min, value - range / 40))
         }}
       >
-        <div className={styles.rotor} style={{ transform: `rotate(${angle}deg)` }}>
-          <div className={styles.pointer} />
+        <div className="absolute inset-0" style={{ transform: `rotate(${angle}deg)` }}>
+          <div className="absolute left-1/2 top-[6px] h-[34%] w-[2px] -translate-x-1/2 rounded-[2px] bg-accent" />
         </div>
       </div>
-      <div className={styles.label}>{label}</div>
-      {readout && <div className={styles.readout}>{readout}</div>}
+      <div className="font-mono text-[10px] tracking-[0.1em] text-text-muted">{label}</div>
+      {readout && <div className="mt-[-4px] font-mono text-[10px] tracking-[0.04em] text-accent">{readout}</div>}
     </div>
   )
 }

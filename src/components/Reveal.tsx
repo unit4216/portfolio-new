@@ -1,6 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { useInView } from '../hooks/useInView'
-import styles from './Reveal.module.css'
 
 interface RevealProps {
   children: ReactNode
@@ -15,7 +14,13 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
   return (
     <div
       ref={ref}
-      className={[styles.reveal, isInView && styles.visible, className].filter(Boolean).join(' ')}
+      className={[
+        'translate-y-6 opacity-0 transition-[opacity,transform] duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100',
+        isInView && 'translate-y-0 opacity-100',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
       style={style}
     >
       {children}

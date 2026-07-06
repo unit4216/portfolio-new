@@ -1,3 +1,13 @@
+@import 'tailwindcss';
+
+/*
+ * Theme is driven by a `data-theme` attribute on <html> (set before paint by an
+ * inline script in index.html and kept in sync by ThemeProvider). We map that to
+ * a Tailwind `dark:` variant so utilities can opt into dark styling directly.
+ */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* ---- Semantic design tokens (swapped at runtime by data-theme) ---- */
 :root {
   color-scheme: light;
 
@@ -20,9 +30,22 @@
   --color-contact-text: #f6f2ea;
   --color-contact-accent: #d98a5c;
 
-  --font-serif: 'Newsreader', serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-sans: 'Helvetica Neue', Arial, sans-serif;
+  /* Synthesizer chrome (used only by /synth) */
+  --syn-knob-hi: #fdfbf6;
+  --syn-knob-lo: #e7ddca;
+  --syn-knob-border: var(--color-tag-border);
+  --syn-knob-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 3px 6px rgba(40, 32, 20, 0.13);
+  --syn-slot: #e6ddcd;
+  --syn-thumb: linear-gradient(#fdfbf6, #efe6d5);
+  --syn-thumb-shadow: 0 2px 4px rgba(40, 32, 20, 0.15);
+  --syn-grid: rgba(107, 99, 87, 0.08);
+  --syn-scope-bg1: #efe7d8;
+  --syn-scope-bg2: #f4eee2;
+  --syn-white: linear-gradient(#ffffff, #f3ede0);
+  --syn-white-shadow: inset 0 -3px 6px rgba(40, 32, 20, 0.06);
+  --syn-white-border: var(--color-tag-border);
+  --syn-black: linear-gradient(#3a332a, #1a1712);
+  --syn-panel-shadow: 0 40px 90px -50px rgba(40, 32, 20, 0.55);
 }
 
 :root[data-theme='dark'] {
@@ -46,16 +69,59 @@
   --color-contact-bg: #0f0d09;
   --color-contact-text: #f2ede3;
   --color-contact-accent: #d98a5c;
+
+  --syn-knob-hi: #2b2318;
+  --syn-knob-lo: #100d09;
+  --syn-knob-border: #3a342a;
+  --syn-knob-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05), 0 3px 6px rgba(0, 0, 0, 0.4);
+  --syn-slot: #2a251d;
+  --syn-thumb: linear-gradient(#2b2318, #17140f);
+  --syn-thumb-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --syn-grid: rgba(214, 188, 150, 0.06);
+  --syn-scope-bg1: #1b1710;
+  --syn-scope-bg2: #211c14;
+  --syn-white: linear-gradient(#eae2d3, #d6cbb6);
+  --syn-white-shadow: none;
+  --syn-white-border: #0d0b08;
+  --syn-black: linear-gradient(#241f16, #050403);
+  --syn-panel-shadow: 0 40px 100px -40px rgba(0, 0, 0, 0.7);
 }
 
-* {
-  box-sizing: border-box;
+/* ---- Expose tokens to Tailwind utilities (bg-bg, text-accent, font-serif, …) ----
+ * `inline` keeps the utilities referencing the runtime vars above, so they follow
+ * the active theme instead of being frozen at build time. */
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-body: var(--color-text-body);
+  --color-border: var(--color-border);
+  --color-tag-border: var(--color-tag-border);
+  --color-accent: var(--color-accent);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-shot-stripe-1: var(--color-shot-stripe-1);
+  --color-shot-stripe-2: var(--color-shot-stripe-2);
+  --color-shot-text: var(--color-shot-text);
+  --color-contact-bg: var(--color-contact-bg);
+  --color-contact-text: var(--color-contact-text);
+  --color-contact-accent: var(--color-contact-accent);
 }
 
-html {
-  -webkit-text-size-adjust: 100%;
+@theme {
+  --font-serif: 'Newsreader', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Helvetica Neue', Arial, sans-serif;
+
+  /* The original CSS used the `ease` keyword throughout; make it the default. */
+  --default-transition-timing-function: ease;
+
+  --animate-pulse-dot: fp-pulse 2s ease-in-out infinite;
+  --animate-grad: fp-grad 6s linear infinite;
+  --animate-led: syn-led 1.8s ease-in-out infinite;
+  --animate-toggle-fade: toggle-fade 0.25s ease;
 }
 
+/* ---- Base styles ---- */
 body {
   margin: 0;
   background: var(--color-bg);
@@ -66,20 +132,16 @@ body {
     color 0.2s ease;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 ::selection {
   background: rgba(0, 0, 0, 0.08);
 }
 
 :root[data-theme='dark'] ::selection {
   background: rgba(255, 255, 255, 0.12);
-}
-
-a {
-  color: inherit;
-}
-
-button {
-  font-family: inherit;
 }
 
 #root {
@@ -92,6 +154,7 @@ button {
   }
 }
 
+/* ---- Keyframes ---- */
 @keyframes fp-grad {
   0% {
     background-position: 0% 50%;
@@ -119,6 +182,34 @@ button {
   }
   100% {
     transform: translateX(220%);
+  }
+}
+
+@keyframes fp-rise-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toggle-fade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes syn-led {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
   }
 }
 

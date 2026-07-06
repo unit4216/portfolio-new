@@ -5,7 +5,6 @@ import { DEFAULT_PARAMS, midiToFreq, SynthEngine, type SynthParams, type Wave } 
 import { Knob } from './Knob'
 import { Fader } from './Fader'
 import { Oscilloscope } from './Oscilloscope'
-import styles from './SynthPage.module.css'
 
 const WAVES: Wave[] = ['Sine', 'Saw', 'Square', 'Triangle']
 const WAVE_SHORT: Record<Wave, string> = { Sine: 'SINE', Saw: 'SAW', Square: 'SQUARE', Triangle: 'TRI' }
@@ -23,6 +22,26 @@ const KEY_TO_MIDI: Record<string, number> = {
 const MIDI_TO_KEY: Record<number, string> = Object.fromEntries(
   Object.entries(KEY_TO_MIDI).map(([k, m]) => [m, k.toUpperCase()]),
 )
+
+// Shared utility-class recipes.
+const chip =
+  'cursor-pointer rounded-full border border-tag-border bg-transparent px-3 py-[6px] font-mono text-[11px] tracking-[0.06em] text-text-muted transition-colors duration-200 hover:border-accent hover:text-text'
+const scopeGrid =
+  'pointer-events-none absolute inset-0 bg-[linear-gradient(var(--syn-grid)_1px,transparent_1px),linear-gradient(90deg,var(--syn-grid)_1px,transparent_1px)] bg-[length:32px_24px]'
+const scopeBg =
+  'bg-[repeating-linear-gradient(135deg,var(--syn-scope-bg1)_0_11px,var(--syn-scope-bg2)_11px_22px)]'
+const shapeCommon =
+  'w-[74px] cursor-pointer border px-0 py-[5px] font-mono text-[10px] tracking-[0.08em] transition-colors duration-150 first:rounded-t-[4px]'
+const shape = `${shapeCommon} border-tag-border bg-transparent text-text-muted hover:text-text`
+const shapeActive = `${shapeCommon} border-accent bg-accent text-white`
+const whiteKeyBase =
+  'relative flex-1 cursor-pointer touch-none rounded-b-[5px] border border-[var(--syn-white-border)] p-0 shadow-[var(--syn-white-shadow)] transition-[background] duration-[50ms]'
+const whiteKey = `${whiteKeyBase} bg-[image:var(--syn-white)]`
+const whiteKeyActive = `${whiteKeyBase} bg-[linear-gradient(rgba(var(--color-accent-rgb),0.32),rgba(var(--color-accent-rgb),0.14))]`
+const blackKeyBase =
+  'absolute top-0 z-[2] flex h-[62%] w-[38px] cursor-pointer touch-none items-end justify-center rounded-b-[4px] border-none p-0 pb-[8px] shadow-[0_4px_6px_rgba(40,32,20,0.4)]'
+const blackKey = `${blackKeyBase} bg-[image:var(--syn-black)]`
+const blackKeyActive = `${blackKeyBase} bg-[linear-gradient(rgba(var(--color-accent-rgb),0.85),rgba(var(--color-accent-rgb),0.55))]`
 
 interface WhiteKey {
   midi: number
@@ -150,28 +169,26 @@ export function SynthPage() {
   const keyLabel = (midi: number) => (showQwerty ? MIDI_TO_KEY[midi] : undefined)
 
   return (
-    <div className={styles.page} data-theme={theme}>
-      <header className={styles.chrome}>
-        <Link to="/" className={styles.back}>
+    <div
+      className="min-h-screen bg-bg px-[clamp(16px,4vw,60px)] pt-[clamp(20px,4vw,48px)] pb-24 text-text"
+      data-theme={theme}
+    >
+      <header className="mx-auto mb-7 flex max-w-[1080px] items-center justify-between gap-4 font-mono text-[12px] tracking-[0.04em] text-text-muted">
+        <Link to="/" className="text-text no-underline transition-colors duration-200 hover:text-accent">
           ← PPC
         </Link>
-        <div className={styles.chromeMeta}>
+        <div className="flex flex-1 justify-center gap-[10px]">
           <span>WEB SYNTHESIZER</span>
-          <span className={styles.chromeDivider}>·</span>
+          <span className="text-tag-border">·</span>
           <span>WARM ANALOG MONO</span>
         </div>
-        <div className={styles.chromeRight}>
-          <button
-            type="button"
-            className={styles.chip}
-            onClick={() => setShowQwerty((v) => !v)}
-            aria-pressed={showQwerty}
-          >
+        <div className="flex gap-[10px]">
+          <button type="button" className={chip} onClick={() => setShowQwerty((v) => !v)} aria-pressed={showQwerty}>
             KEYS {showQwerty ? 'ON' : 'OFF'}
           </button>
           <button
             type="button"
-            className={styles.chip}
+            className={chip}
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
@@ -180,67 +197,67 @@ export function SynthPage() {
         </div>
       </header>
 
-      <div className={styles.panel}>
+      <div className="mx-auto max-w-[1080px] overflow-hidden border border-border bg-bg shadow-[var(--syn-panel-shadow)]">
         {/* top bar */}
-        <div className={styles.topBar}>
-          <div className={styles.brand}>
-            <span className={styles.brandName}>
-              <span className={styles.led} />
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-[clamp(20px,4vw,56px)] py-6">
+          <div className="flex items-baseline gap-[14px]">
+            <span className="inline-flex items-center gap-[9px] font-mono text-[13px] tracking-[0.14em] text-text">
+              <span className="h-[7px] w-[7px] animate-led rounded-full bg-accent" />
               MONOLITH
             </span>
-            <span className={styles.brandSub}>analog voice</span>
+            <span className="font-serif text-[16px] italic text-text-muted">analog voice</span>
           </div>
-          <div className={styles.status}>
+          <div className="flex gap-[20px] font-mono text-[11px] tracking-[0.08em] text-text-muted">
             <span>INIT · PORTAMENTO</span>
-            <span className={styles.statusDivider}>|</span>
+            <span className="text-tag-border">|</span>
             <span>MONO</span>
-            <span className={styles.statusDivider}>|</span>
+            <span className="text-tag-border">|</span>
             <span>MIDI CH 01</span>
           </div>
         </div>
 
         {/* oscilloscope */}
-        <div className={styles.scopeRow}>
-          <div className={styles.scopeLabel}>
-            <div className={styles.scopeTitle}>OSCILLOSCOPE</div>
-            <div className={styles.scopeSub}>Waveform monitor</div>
+        <div className="grid grid-cols-1 items-stretch border-b border-border min-[900px]:grid-cols-[150px_1fr_190px]">
+          <div className="flex flex-col justify-center gap-[6px] pl-[clamp(20px,4vw,56px)] pr-[clamp(20px,4vw,56px)] pt-5 pb-0 min-[900px]:pr-0 min-[900px]:pt-6 min-[900px]:pb-6">
+            <div className="font-mono text-[11px] tracking-[0.1em] text-accent">OSCILLOSCOPE</div>
+            <div className="font-serif text-[15px] text-text-muted">Waveform monitor</div>
           </div>
-          <div className={styles.scope}>
-            <div className={styles.scopeGrid} />
-            <div className={styles.scopeMid} />
+          <div className={`relative mx-6 my-5 min-h-[120px] overflow-hidden border border-border ${scopeBg}`}>
+            <div className={scopeGrid} />
+            <div className="absolute inset-x-0 top-1/2 h-px bg-[var(--syn-grid)]" />
             <Oscilloscope engine={engine} wave={params.wave} />
           </div>
-          <div className={styles.scopeReadouts}>
-            <div className={styles.readoutBlock}>
-              <div className={styles.readoutBig}>
+          <div className="flex flex-col items-end justify-start gap-[34px] pl-[clamp(20px,4vw,56px)] pr-[clamp(20px,4vw,56px)] pt-0 pb-5 font-mono text-[11px] text-text-muted min-[900px]:flex-col min-[900px]:justify-center min-[900px]:gap-[14px] min-[900px]:pt-6 min-[900px]:pb-6 max-[900px]:flex-row">
+            <div className="text-right">
+              <div className="font-serif text-[26px] leading-none text-text">
                 {Math.round(freq)}
-                <span className={styles.readoutUnit}>Hz</span>
+                <span className="text-accent">Hz</span>
               </div>
-              <div className={styles.readoutCap}>FREQ · {freqNote}</div>
+              <div className="mt-[4px] tracking-[0.08em]">FREQ · {freqNote}</div>
             </div>
-            <div className={styles.readoutBlock}>
-              <div className={styles.readoutMed}>{WAVE_SHORT[params.wave]}</div>
-              <div className={styles.readoutCap}>WAVE</div>
+            <div className="text-right">
+              <div className="font-serif text-[21px] leading-none text-text whitespace-nowrap">{WAVE_SHORT[params.wave]}</div>
+              <div className="mt-[4px] tracking-[0.08em]">WAVE</div>
             </div>
           </div>
         </div>
 
         {/* module row A */}
-        <div className={styles.rowA}>
+        <div className="flex flex-wrap items-stretch border-b border-border">
           <Module num="01" title="OSCILLATOR" grow={1.15}>
-            <div className={styles.oscControls}>
-              <div className={styles.shapeSelect}>
+            <div className="flex items-start justify-center gap-[22px]">
+              <div className="flex flex-col items-center gap-[6px]">
                 {WAVES.map((w) => (
                   <button
                     key={w}
                     type="button"
-                    className={w === params.wave ? styles.shapeActive : styles.shape}
+                    className={w === params.wave ? shapeActive : shape}
                     onClick={() => setParam('wave', w)}
                   >
                     {WAVE_SHORT[w]}
                   </button>
                 ))}
-                <div className={styles.shapeCap}>SHAPE</div>
+                <div className="mt-[4px] font-mono text-[10px] tracking-[0.1em] text-text-muted">SHAPE</div>
               </div>
               <Knob
                 label="TUNE"
@@ -262,7 +279,7 @@ export function SynthPage() {
           </Module>
 
           <Module num="02" title="FILTER" grow={0.85}>
-            <div className={styles.knobRow}>
+            <div className="flex justify-center gap-[22px]">
               <Knob
                 label="CUTOFF"
                 value={params.cutoff}
@@ -283,9 +300,9 @@ export function SynthPage() {
           </Module>
 
           <Module num="03" title="ENVELOPE · ADSR" grow={1.4}>
-            <div className={styles.envGraph}>
-              <div className={styles.scopeGrid} />
-              <svg viewBox="0 0 300 74" preserveAspectRatio="none" className={styles.envSvg}>
+            <div className={`relative mb-[18px] h-[74px] overflow-hidden border border-border ${scopeBg}`}>
+              <div className={scopeGrid} />
+              <svg viewBox="0 0 300 74" preserveAspectRatio="none" className="relative block h-[74px] w-full">
                 <polyline
                   points={adsrPoints}
                   fill="none"
@@ -297,7 +314,7 @@ export function SynthPage() {
                 <polygon points={`${adsrPoints} 298,72`} fill="rgba(var(--color-accent-rgb),0.08)" />
               </svg>
             </div>
-            <div className={styles.faderRow}>
+            <div className="flex justify-between gap-[14px] [&>*]:flex-1">
               <Fader label="A" value={params.attack} min={0} max={2} onChange={(v) => setParam('attack', v)} height={64} />
               <Fader label="D" value={params.decay} min={0} max={2} onChange={(v) => setParam('decay', v)} height={64} />
               <Fader label="S" value={params.sustain} min={0} max={1} onChange={(v) => setParam('sustain', v)} height={64} />
@@ -306,7 +323,7 @@ export function SynthPage() {
           </Module>
 
           <Module num="04" title="LFO" grow={0.85} last>
-            <div className={styles.knobRow}>
+            <div className="flex justify-center gap-[22px]">
               <Knob
                 label="RATE"
                 value={params.lfoRate}
@@ -328,9 +345,9 @@ export function SynthPage() {
         </div>
 
         {/* module row B */}
-        <div className={styles.rowB}>
+        <div className="flex flex-wrap items-stretch border-b border-border">
           <Module num="05" title="MIXER" grow={1.5}>
-            <div className={styles.faderRowWide}>
+            <div className="flex justify-center gap-[34px]">
               <Fader label="OSC 1" value={params.mixOsc1} min={0} max={1} onChange={(v) => setParam('mixOsc1', v)} />
               <Fader label="OSC 2" value={params.mixOsc2} min={0} max={1} onChange={(v) => setParam('mixOsc2', v)} />
               <Fader label="SUB" value={params.mixSub} min={0} max={1} onChange={(v) => setParam('mixSub', v)} />
@@ -339,7 +356,7 @@ export function SynthPage() {
           </Module>
 
           <Module num="06" title="FX" grow={1}>
-            <div className={styles.knobRow}>
+            <div className="flex justify-center gap-[22px]">
               <Knob
                 label="REVERB"
                 value={params.reverb}
@@ -360,7 +377,7 @@ export function SynthPage() {
           </Module>
 
           <Module num="07" title="MASTER" grow={1} last>
-            <div className={styles.masterRow}>
+            <div className="flex items-start justify-center gap-[28px]">
               <Knob
                 label="VOLUME"
                 value={params.volume}
@@ -376,19 +393,19 @@ export function SynthPage() {
         </div>
 
         {/* keyboard */}
-        <div className={styles.keyboardSection}>
-          <div className={styles.keyboardHead}>
+        <div className="px-[clamp(20px,4vw,56px)] pt-7 pb-10">
+          <div className="mb-[18px] flex items-center justify-between font-mono text-[11px] tracking-[0.08em] text-text-muted">
             <span>
-              <span className={styles.kbNum}>08</span> KEYBOARD · 2 OCTAVES
+              <span className="mr-2 text-accent">08</span> KEYBOARD · 2 OCTAVES
             </span>
             <span>{lastMidi === null ? 'C3 — B4' : `PLAYING ${noteLabel(lastMidi)}`}</span>
           </div>
-          <div className={styles.keyboard}>
+          <div className="relative flex h-[172px] gap-[4px]">
             {keyboard.whites.map((wk) => (
               <button
                 key={wk.midi}
                 type="button"
-                className={active.has(wk.midi) ? styles.whiteKeyActive : styles.whiteKey}
+                className={active.has(wk.midi) ? whiteKeyActive : whiteKey}
                 onPointerDown={(e) => {
                   e.preventDefault()
                   noteOn(wk.midi)
@@ -397,14 +414,18 @@ export function SynthPage() {
                 onPointerLeave={() => active.has(wk.midi) && noteOff(wk.midi)}
                 onPointerCancel={() => noteOff(wk.midi)}
               >
-                {keyLabel(wk.midi) && <span className={styles.keyCap}>{keyLabel(wk.midi)}</span>}
+                {keyLabel(wk.midi) && (
+                  <span className="pointer-events-none absolute bottom-[12px] left-1/2 -translate-x-1/2 font-mono text-[11px] text-text-muted">
+                    {keyLabel(wk.midi)}
+                  </span>
+                )}
               </button>
             ))}
             {keyboard.blacks.map((bk) => (
               <button
                 key={bk.midi}
                 type="button"
-                className={active.has(bk.midi) ? styles.blackKeyActive : styles.blackKey}
+                className={active.has(bk.midi) ? blackKeyActive : blackKey}
                 style={{ left: `calc(100% / ${keyboard.totalWhites} * ${bk.leftWhites} - 19px)` }}
                 onPointerDown={(e) => {
                   e.preventDefault()
@@ -414,11 +435,13 @@ export function SynthPage() {
                 onPointerLeave={() => active.has(bk.midi) && noteOff(bk.midi)}
                 onPointerCancel={() => noteOff(bk.midi)}
               >
-                {keyLabel(bk.midi) && <span className={styles.keyCapBlack}>{keyLabel(bk.midi)}</span>}
+                {keyLabel(bk.midi) && (
+                  <span className="pointer-events-none font-mono text-[10px] text-[#a89e8d]">{keyLabel(bk.midi)}</span>
+                )}
               </button>
             ))}
           </div>
-          <div className={styles.hint}>
+          <div className="mt-[22px] max-w-[60ch] font-mono text-[11px] tracking-[0.02em] text-text-muted">
             Play with your mouse or the highlighted keyboard keys. Drag knobs and faders vertically to shape the
             sound.
           </div>
@@ -441,10 +464,12 @@ function Module({
   last?: boolean
   children: React.ReactNode
 }) {
+  const base =
+    'min-w-[220px] px-[clamp(20px,2.5vw,34px)] pt-7 pb-8 max-[900px]:!basis-full max-[900px]:border-b max-[900px]:border-r-0 max-[900px]:border-border'
   return (
-    <div className={last ? styles.moduleLast : styles.module} style={{ flexGrow: grow, flexBasis: 0 }}>
-      <div className={styles.moduleTitle}>
-        <span className={styles.moduleNum}>{num}</span> {title}
+    <div className={last ? base : `${base} border-r border-border`} style={{ flexGrow: grow, flexBasis: 0 }}>
+      <div className="mb-6 font-mono text-[11px] tracking-[0.1em] text-text-muted">
+        <span className="mr-2 text-accent">{num}</span> {title}
       </div>
       {children}
     </div>

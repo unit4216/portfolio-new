@@ -24,7 +24,7 @@ export const projects: Project[] = [
     shotLabel: '[ VIEW THE CRM → ]',
     href: 'https://property-crm.pablopaliza.com',
     external: true,
-    githubHref: 'https://github.com/unit4216/property-crm',
+    githubHref: 'https://github.com/pfpaliza/property-crm',
   },
   {
     index: '02',
@@ -35,7 +35,7 @@ export const projects: Project[] = [
     tags: ['TYPESCRIPT', 'REACT', 'WEB AUDIO', 'CANVAS'],
     shotLabel: '[ LAUNCH THE SYNTH → ]',
     href: '/synth',
-    githubHref: 'https://github.com/unit4216/portfolio-new/tree/main/src/synth',
+    githubHref: 'https://github.com/pfpaliza/portfolio-new/tree/main/src/synth',
   },
   {
     index: '03',
@@ -56,7 +56,7 @@ export const projects: Project[] = [
       'A convolutional neural network that classifies histopathologic scans for signs of cancer, trained on a 220k-image Kaggle dataset with Keras and TensorFlow.',
     tags: ['PYTHON', 'TENSORFLOW', 'KERAS', 'CNN'],
     shotLabel: '[ VIEW THE NOTEBOOK → ]',
-    href: 'https://github.com/unit4216/cancer-cnn/blob/main/cnn-cancer-detection.ipynb',
+    href: 'https://github.com/pfpaliza/cancer-cnn/blob/main/cnn-cancer-detection.ipynb',
     external: true,
   },
 ]
@@ -68,9 +68,11 @@ export interface ExperienceEntry {
 }
 
 export const experience: ExperienceEntry[] = [
-  { role: 'Staff Engineer · Vantage', detail: 'Payments platform & developer tooling', range: '2022—NOW' },
-  { role: 'Senior Engineer · Meridian', detail: 'Data infrastructure for logistics', range: '2019—2022' },
-  { role: 'Software Engineer · Bynel', detail: 'Full-stack product engineering', range: '2017—2019' },
+  { role: 'Software Development Lead', detail: 'Westland Real Estate Group · Remote', range: '2024—NOW' },
+  { role: 'Software Developer', detail: 'Westland Real Estate Group · Remote', range: '2023—2024' },
+  { role: 'Junior Software Developer', detail: 'Westland Real Estate Group · Remote', range: '2022—2023' },
+  { role: 'IT Engineer', detail: 'Synergy Associates · Los Angeles', range: '2021—2022' },
+  { role: 'Software Developer', detail: 'Paliza Consulting · Part-time', range: '2020—2025' },
 ]
 
 export interface ToolkitGroup {
@@ -79,15 +81,15 @@ export interface ToolkitGroup {
 }
 
 export const toolkit: ToolkitGroup[] = [
-  { label: 'LANGUAGES', items: ['Go', 'TypeScript', 'Rust', 'Python', 'SQL'] },
-  { label: 'FRAMEWORKS', items: ['React', 'Next.js', 'Node', 'gRPC', 'GraphQL'] },
-  { label: 'INFRA', items: ['Postgres', 'Kafka', 'Kubernetes', 'Terraform', 'AWS'] },
+  { label: 'LANGUAGES', items: ['TypeScript', 'JavaScript', 'Python', 'SQL', 'Bash'] },
+  { label: 'FRAMEWORKS', items: ['React', 'Next.js', 'Node.js', 'Express', 'Tailwind CSS'] },
+  { label: 'CLOUD & DATA', items: ['GCP', 'Cloud Run', 'BigQuery', 'PostgreSQL', 'Pub/Sub'] },
 ]
 
 export const contact = {
   email: 'pf.paliza@gmail.com',
   links: [
-    { label: 'GITHUB', href: 'https://github.com/unit4216' },
+    { label: 'GITHUB', href: 'https://github.com/pfpaliza' },
     { label: 'LINKEDIN', href: 'https://www.linkedin.com/in/pablo-paliza-carre-029676134/' },
   ],
 }

@@ -38,6 +38,16 @@ export function Hero() {
         <span className="h-[4px] w-[4px] animate-pulse-dot rounded-full bg-accent" />
         <span>AVAILABLE Q3 2026</span>
       </div>
+      <div className="mt-[40px]">
+        <a
+          href="/Pablo_Paliza-Carre_Resume.pdf"
+          download
+          className={`inline-flex translate-y-[16px] items-center gap-[10px] rounded-full border border-tag-border px-[22px] py-[11px] font-mono text-[12px] tracking-[0.08em] text-text-muted no-underline opacity-0 transition-colors ${riseIn} [animation-delay:660ms] hover:border-accent hover:text-accent`}
+        >
+          DOWNLOAD RÉSUMÉ
+          <span aria-hidden="true">↓</span>
+        </a>
+      </div>
     </section>
   )
 }

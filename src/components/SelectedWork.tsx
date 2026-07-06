@@ -3,7 +3,7 @@ import { Link } from '../router'
 import { Reveal } from './Reveal'
 
 const shotBase =
-  'relative mt-[26px] flex h-[280px] items-center justify-center overflow-hidden bg-[repeating-linear-gradient(135deg,var(--color-shot-stripe-1)_0_11px,var(--color-shot-stripe-2)_11px_22px)] text-center font-mono text-[12px] tracking-[0.05em] text-shot-text transition-[transform,box-shadow,color] duration-[350ms] group-hover:-translate-y-1 group-hover:shadow-[0_24px_40px_-28px_rgba(0,0,0,0.35)]'
+  'relative mt-[26px] flex h-[280px] items-center justify-center overflow-hidden bg-[repeating-linear-gradient(135deg,var(--color-shot-stripe-1)_0_11px,var(--color-shot-stripe-2)_11px_22px)] text-center font-mono text-[12px] tracking-[0.05em] text-shot-text transition-[translate,box-shadow,color] duration-[350ms] group-hover:-translate-y-1 group-hover:shadow-[0_24px_40px_-28px_rgba(0,0,0,0.35)]'
 const shotDiv = `${shotBase} max-sm:h-[180px]`
 const shotLink = `${shotBase} cursor-pointer border border-tag-border no-underline group-hover:border-accent group-hover:text-accent`
 const shotSweep =

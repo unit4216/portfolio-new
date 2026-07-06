@@ -15,8 +15,11 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
     <div
       ref={ref}
       className={[
-        'translate-y-6 opacity-0 transition-[opacity,translate] duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100',
-        isInView && 'translate-y-0 opacity-100',
+        // Apply the offset only while hidden: `translate-y-6` and `translate-y-0`
+        // both write --tw-translate-y, and Tailwind emits y-0 before y-6, so if
+        // both were present y-6 would win and the element would never rise.
+        'transition-[opacity,translate] duration-700 motion-reduce:!translate-y-0 motion-reduce:opacity-100',
+        isInView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
         className,
       ]
         .filter(Boolean)

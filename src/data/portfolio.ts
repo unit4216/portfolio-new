@@ -61,18 +61,41 @@ export const projects: Project[] = [
   },
 ]
 
-export interface ExperienceEntry {
+export interface ExperienceRole {
   role: string
-  detail: string
   range: string
 }
 
+export interface ExperienceEntry {
+  company: string
+  location: string
+  range: string
+  roles: ExperienceRole[]
+}
+
 export const experience: ExperienceEntry[] = [
-  { role: 'Software Development Lead', detail: 'Westland Real Estate Group · Remote', range: '2024—NOW' },
-  { role: 'Software Developer', detail: 'Westland Real Estate Group · Remote', range: '2023—2024' },
-  { role: 'Junior Software Developer', detail: 'Westland Real Estate Group · Remote', range: '2022—2023' },
-  { role: 'IT Engineer', detail: 'Synergy Associates · Los Angeles', range: '2021—2022' },
-  { role: 'Software Developer', detail: 'Paliza Consulting · Part-time', range: '2020—2025' },
+  {
+    company: 'Westland Real Estate Group',
+    location: 'Remote',
+    range: '2022—NOW',
+    roles: [
+      { role: 'Software Development Lead', range: '2024—NOW' },
+      { role: 'Software Developer', range: '2023—2024' },
+      { role: 'Junior Software Developer', range: '2022—2023' },
+    ],
+  },
+  {
+    company: 'Synergy Associates',
+    location: 'Los Angeles',
+    range: '2021—2022',
+    roles: [{ role: 'IT Engineer', range: '2021—2022' }],
+  },
+  {
+    company: 'Paliza Consulting',
+    location: 'Part-time',
+    range: '2020—2025',
+    roles: [{ role: 'Software Developer', range: '2020—2025' }],
+  },
 ]
 
 export interface ToolkitGroup {

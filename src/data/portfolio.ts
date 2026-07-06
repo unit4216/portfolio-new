@@ -19,7 +19,7 @@ export const projects: Project[] = [
     title: 'Property CRM',
     year: '2026',
     description:
-      'A mini property-management CRM with full CRUD for properties, built on Next.js Server Actions and Postgres. Zod-validated writes end to end, deployed against Supabase.',
+      'A mini property-management CRM with full CRUD for properties, built on Next.js and Postgres, deployed against Supabase.',
     tags: ['NEXT.JS', 'TYPESCRIPT', 'POSTGRES', 'DRIZZLE'],
     shotLabel: '[ VIEW THE CRM → ]',
     href: 'https://property-crm.pablopaliza.com',
